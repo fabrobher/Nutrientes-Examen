@@ -39,6 +39,10 @@ const show = async function (req, res) {
 const create = async function (req, res) {
   let newProduct = Product.build(req.body)
   try {
+    const grasas = newProduct.fats
+    const carbohidratos = newProduct.carbohydrates
+    const proteinas = newProduct.proteins
+    newProduct.calories = 9 * grasas + 4 * proteinas + 4 * carbohidratos
     newProduct = await newProduct.save()
     res.json(newProduct)
   } catch (err) {
@@ -83,7 +87,7 @@ const popular = async function (req, res) {
         {
           model: Restaurant,
           as: 'restaurant',
-          attributes: ['id', 'name', 'description', 'address', 'postalCode', 'url', 'shippingCosts', 'averageServiceMinutes', 'email', 'phone', 'logo', 'heroImage', 'status', 'restaurantCategoryId'],
+          attributes: ['id', 'name', 'description', 'fats', 'carbohydrates', 'proteins', 'calories', 'address', 'postalCode', 'url', 'shippingCosts', 'averageServiceMinutes', 'email', 'phone', 'logo', 'heroImage', 'status', 'restaurantCategoryId'],
           include:
         {
           model: RestaurantCategory,

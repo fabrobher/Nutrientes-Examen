@@ -21,6 +21,22 @@ const loadModel = (sequelize, DataTypes) => {
   Product.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,
+    fats: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 0.0
+    },
+    proteins:{
+      type: DataTypes.DOUBLE,
+      defaultValue: 0.0
+    },
+    carbohydrates:{
+      type: DataTypes.DOUBLE,
+      defaultValue: 0.0
+    },
+    calories: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 0.0
+    },
     price: DataTypes.DOUBLE,
     image: DataTypes.STRING,
     order: DataTypes.INTEGER,

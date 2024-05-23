@@ -65,44 +65,14 @@ export default function RestaurantDetailScreen ({ navigation, route }) {
         {!item.availability &&
           <TextRegular textStyle={styles.availability }>Not available</TextRegular>
         }
-         <View style={styles.actionButtonsContainer}>
-          <Pressable
-            onPress={() => navigation.navigate('EditProductScreen', { id: item.id })
-            }
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed
-                  ? GlobalStyles.brandBlueTap
-                  : GlobalStyles.brandBlue
-              },
-              styles.actionButton
-            ]}>
-          <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
-            <MaterialCommunityIcons name='pencil' color={'white'} size={20}/>
-            <TextRegular textStyle={styles.text}>
-              Edit
-            </TextRegular>
-          </View>
-        </Pressable>
-
-        <Pressable
-            onPress={() => { setProductToBeDeleted(item) }}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed
-                  ? GlobalStyles.brandPrimaryTap
-                  : GlobalStyles.brandPrimary
-              },
-              styles.actionButton
-            ]}>
-          <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
-            <MaterialCommunityIcons name='delete' color={'white'} size={20}/>
-            <TextRegular textStyle={styles.text}>
-              Delete
-            </TextRegular>
-          </View>
-        </Pressable>
+        <TextSemiBold >Nutrition composition</TextSemiBold>
+        <View style={styles.nutricion}>
+        <TextRegular ><TextSemiBold>Fats:</TextSemiBold> {item.fats.toFixed(2)}</TextRegular>
+        <TextRegular ><TextSemiBold>Proteins:</TextSemiBold>{item.proteins.toFixed(2)}</TextRegular>
+        <TextRegular ><TextSemiBold>Carbohydrates:</TextSemiBold>{item.carbohydrates.toFixed(2)}</TextRegular>
+        <TextRegular ><TextSemiBold>Calories:</TextSemiBold>{item.calories.toFixed(2)}</TextRegular>
         </View>
+
       </ImageCard>
     )
   }
@@ -178,8 +148,11 @@ const styles = StyleSheet.create({
   },
   row: {
     padding: 15,
-    marginBottom: 5,
+    marginBottom: 10,
     backgroundColor: GlobalStyles.brandSecondary
+  },
+  nutricion: {
+    marginLeft: 20
   },
   restaurantHeaderContainer: {
     height: 250,

@@ -14,10 +14,31 @@ const checkRestaurantExists = async (value, { req }) => {
     return Promise.reject(new Error(err))
   }
 }
+
+const checkProductHipercalorico = async (values, { req }) => {
+  try {
+    const grasas = req.body.fats
+    const carbo = req.body.carbohydrates
+    const proteinas = req.body.proteins
+    const calorias = 9 * grasas + carbo * 4 + 4 * proteinas
+    if (calorias <= 1000 && ((grasas + carbo + proteinas) <= 100)) {
+      return Promise.resolve()
+    } else {
+      return Promise.reject(new Error('El plato contiene más de 1000 calorias por 100g de producto'))
+    }
+  } catch (err) {
+    return Promise.reject(new Error(err))
+  }
+}
+
 const create = [
   check('name').exists().isString().isLength({ min: 1, max: 255 }).trim(),
   check('description').optional({ checkNull: true, checkFalsy: true }).isString().isLength({ min: 1 }).trim(),
   check('price').exists().isFloat({ min: 0 }).toFloat(),
+  check('fats').exists().isFloat({ min: 0 }).toFloat(),
+  check('carbohydrates').exists().isFloat({ min: 0 }).toFloat(),
+  check('proteins').exists().isFloat({ min: 0 }).toFloat(),
+  check('calories').custom(checkProductHipercalorico),
   check('order').default(null).optional({ nullable: true }).isInt().toInt(),
   check('availability').optional().isBoolean().toBoolean(),
   check('productCategoryId').exists().isInt({ min: 1 }).toInt(),
